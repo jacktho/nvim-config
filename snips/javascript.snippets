@@ -1,0 +1,51 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+
+snippet item "Add an item for peach insurance display" b
+{ title: '$1', value: $data.$2, page: '$3' },
+
+endsnippet
+
+snippet page "Data about a page" b
+[
+		'$1',
+		{
+			schema: schema.$2,
+			requirement: $3,
+			completed: false,
+			stage: $4 
+		}
+],
+endsnippet
+
+snippet log "Quick console.log of a variable" b
+console.log('$1: ', $1);
+endsnippet
+
+
+snippet slog "console log a simple string" b
+console.log('$1');
+endsnippet

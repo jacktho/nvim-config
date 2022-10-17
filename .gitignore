@@ -1,0 +1,5 @@
+undo
+packer_compiled*
+.stversions
+*sync-conflict-*
+*.log

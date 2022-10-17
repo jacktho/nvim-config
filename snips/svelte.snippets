@@ -1,0 +1,103 @@
+snippet page 'A new peach application page' b
+<script>
+import { dataStore } from '$lib/Stores/data-store';
+import { FormWrap FormSection } from '$lib/Form-Layout/index';
+import { ListWithDescription Input Textarea } from '\$lib/Forms-Inputs/index';
+import { goto } from '\$app/navigation';
+import { initErrors createErrorObject validate } from '\$lib/validate.js';
+import { markAsCompleted } from '\$lib/Utilities/stage-progress-helpers';
+import { $1 } from '\$lib/schema';
+import Markdown { metadata as pageMeta } from '\$lib/Markdown/${2:name}/$2.md'
+
+let values = {
+${3:propertyName}: \$dataStore.$3
+};
+
+let errors = initErrors(values);
+
+const submitHandler = async () => {
+try {
+await validate($1 values);
+
+dataStore.update((initial) => {
+return { ...initial ...values };
+});
+
+markAsCompleted(${4:stageNumber}${5:stepName});
+gotoNextRoute();
+} catch (yupErrors) {
+errors = await createErrorObject(values yupErrors);
+}
+};
+
+function gotoNextRoute() {
+goto('${6:route-name}');
+}
+
+function gotoPreviousRoute() {
+goto('${7:route-name}');
+}
+
+</script>
+<svelte:head>
+<title>{pageMeta.title}</title>
+</svelte:head>
+
+<FormWrap
+on:submit={submitHandler}
+>
+<FormSection on:back={gotoPreviousRoute} hasBack={true}>
+<Markdown slot='explanation' />
+$0
+<slot />
+</FormSection>
+</FormWrap>
+endsnippet
+
+snippet importPageMeta
+import Markdown, { pageMeta } from '\$lib/Markdown/${1:name}/$2.md'
+endsnippet	
+
+snippet importInputMeta
+import { metadata as $1Meta } from '\\$lib/Markdown/$2/$3.md'
+endsnippet
+
+snippet listWithDescription 
+<ListWithDescription
+{...$1Meta}
+error={errors.$1}
+bind:value={values.$1} />
+endsnippet
+
+snippet textarea
+<Textarea {...$1Meta} bind:value={values.$1} error={errors.$1} />
+endsnippet
+
+snippet input
+<Input {...$1Meta} error={errors.$1} bind:value={values.$1} />
+endsnippet
+
+snippet item "Items for review" b
+<Item title={'$2'} page={'$3'}>
+	{$data.$1}
+</Item>
+endsnippet
+
+snippet itemIf "Items for review with if" b
+{#if $data.$1}
+	<Item title={'$2'} page={'$3'}>
+		{$data.$1}
+	</Item>
+{/if}
+endsnippet
+
+snippet itemConditions "Item conditions" b
+<Item title={'$1 conditions'} page={'$2'}>
+	<DividedList items={conditionsTitleValue($data.$2)} nothing={'No conditions'} />
+</Item>
+
+endsnippet
+
+snippet log "Quick console.log of a variable" b
+console.log('$1 :', $1);
+endsnippet

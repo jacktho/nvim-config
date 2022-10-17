@@ -1,0 +1,7 @@
+snippet meta(data)? "hello meta"
+Test
+endsnippet
+
+snippet testSnippet()
+this is a test snippet
+endsnippet

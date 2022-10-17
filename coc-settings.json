@@ -1,0 +1,25 @@
+{
+  "javascript.suggestionActions.enabled": true,
+  "typescript.suggestionActions.enabled": true,
+  "prettier.printWidth": 100,
+  "prettier.singleQuote": true,
+  "svelte.ask-to-enable-ts-plugin": false,
+  "diagnostic.checkCurrentLine": true,
+  "snippets.userSnippetsDirectory": "~/.config/nvim/snips",
+  "eslint.probe": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "vue",
+    "markdown",
+    "svelte"
+  ],
+  "eslint.options": {
+    "ignorePath": ".gitignore"
+  },
+  "eslint.lintTask.options": ["--ignore-path", ".gitignore", "."],
+  "eslint.validate": ["svelte"],
+  "eslint.packageManager": "pnpm"
+}
